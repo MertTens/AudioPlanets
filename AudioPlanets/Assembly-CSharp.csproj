@@ -73,6 +73,8 @@
     <Compile Include="Assets/ShapeSettings.cs" />
     <Compile Include="Assets/Planet.cs" />
     <Compile Include="Assets/ShapeGenerator.cs" />
+    <Compile Include="Assets/KalmanFilter.cs" />
+    <Compile Include="Assets/KalmanSettings.cs" />
   </ItemGroup>
   <ItemGroup>
     <Reference Include="UnityEngine">

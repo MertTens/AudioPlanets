@@ -8,10 +8,11 @@ public class Planet : MonoBehaviour
     [Range(2,256)]
     public int resolution = 10;
     public bool autoUpdate = true;
-    public float timeStep = 0.01f;
+    public float timeStep = 0.1f;
 
     public ShapeSettings shapeSettings;
     public ColorSettings colorSettings;
+    public KalmanSettings kalmanSettings;
 
     [HideInInspector]
     public bool shapeSettingsFoldout;
@@ -19,7 +20,11 @@ public class Planet : MonoBehaviour
     [HideInInspector]
     public bool colorSettingsFoldout;
 
+    [HideInInspector]
+    public bool kalmanSettingsFoldout;
+
     ShapeGenerator shapeGenerator;
+    KalmanFilter kalmanFilter;
 
     [SerializeField, HideInInspector]
     MeshFilter[] meshFilters;
@@ -27,9 +32,13 @@ public class Planet : MonoBehaviour
 
     private AudioPlayer audioPlayer;
     private float time = 0;
+    private int numFilters = 32;
 
     private void Start()
     {
+        // Set up the Kalman filter
+        kalmanFilter = new KalmanFilter(kalmanSettings, numFilters);
+        audioPlayer = GetComponent<AudioPlayer>();
         GeneratePlanet();
     }
 
@@ -43,7 +52,16 @@ public class Planet : MonoBehaviour
 
     void Initialize() {
 
-        audioPlayer = GetComponent<AudioPlayer>();
+
+        // Update the Kalman filter
+        float[] measurements = new float[kalmanFilter.numFilters];
+        for (int i = 0; i < kalmanFilter.numFilters; i++)
+        {
+            measurements[i] = audioPlayer.spectrumSamples[i];
+        }
+
+        kalmanFilter.PredictionGivenMeasurement(measurements);
+        
         shapeGenerator = new ShapeGenerator(shapeSettings);
         if (meshFilters == null || meshFilters.Length == 0)
         {
@@ -63,7 +81,7 @@ public class Planet : MonoBehaviour
                 meshFilters[i].sharedMesh = new Mesh();
             }
 
-            terrainFaces[i] = new TerrainFace(time, audioPlayer.spectrumSamples, shapeGenerator, meshFilters[i].sharedMesh, resolution, directions[i]);
+            terrainFaces[i] = new TerrainFace(kalmanFilter, time, audioPlayer.spectrumSamples, shapeGenerator, meshFilters[i].sharedMesh, resolution, directions[i]);
             
         }
 
@@ -95,6 +113,11 @@ public class Planet : MonoBehaviour
             Initialize();
             GenerateColors();
         }
+    }
+
+    public void OnKalmanSettingsUpdated()
+    {
+        // Do nothing for now
     }
 
     void GenerateMesh()

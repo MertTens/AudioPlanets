@@ -7,7 +7,7 @@ public class AudioPlayer : MonoBehaviour
 {
 
     private int numAudioSapmles = 1024;
-    private int numSpectrumSapmles = 64;
+    private int numSpectrumSapmles = 128;
     private AudioSource audioSource;
     private AudioController audioController;
 

@@ -13,3 +13,6 @@ MonoBehaviour:
   m_Name: Shape
   m_EditorClassIdentifier: 
   planetRadius: 2.89
+  frequencyMult: 2.68
+  baseFrequency: 0.21
+  strengthDecreaseFactor: 0.712

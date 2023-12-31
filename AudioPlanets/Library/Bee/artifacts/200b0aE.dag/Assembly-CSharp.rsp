@@ -354,6 +354,8 @@
 "Assets/AudioPlayer.cs"
 "Assets/AudioSettings.cs"
 "Assets/ColorSettings.cs"
+"Assets/KalmanFilter.cs"
+"Assets/KalmanSettings.cs"
 "Assets/Noise.cs"
 "Assets/Planet.cs"
 "Assets/ShapeGenerator.cs"

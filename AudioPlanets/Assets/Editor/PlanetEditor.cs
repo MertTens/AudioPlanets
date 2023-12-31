@@ -9,6 +9,7 @@ public class PlanetEditor : Editor
     Planet planet;
     Editor shapeEditor;
     Editor colorEditor;
+    Editor kalmanEditor;
 
     public override void OnInspectorGUI() {
 
@@ -29,6 +30,8 @@ public class PlanetEditor : Editor
 
         DrawSettingsEditor(planet.shapeSettings, planet.OnShapeSettingsUpdated, ref planet.shapeSettingsFoldout, ref shapeEditor);
         DrawSettingsEditor(planet.colorSettings, planet.OnColorSettingsUpdated, ref planet.colorSettingsFoldout, ref colorEditor);
+        DrawSettingsEditor(planet.kalmanSettings, planet.OnKalmanSettingsUpdated, ref planet.kalmanSettingsFoldout, ref kalmanEditor);
+
     }
 
     void DrawSettingsEditor(Object settings, System.Action onSettingsUpdated, ref bool foldout, ref Editor editor)
