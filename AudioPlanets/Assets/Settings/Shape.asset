@@ -12,7 +12,8 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: be5268af3188844e7900d78fa72c8f24, type: 3}
   m_Name: Shape
   m_EditorClassIdentifier: 
-  planetRadius: 2.89
+  planetRadius: 2
   frequencyMult: 2.68
   baseFrequency: 0.21
+  strengthMult: 6.44
   strengthDecreaseFactor: 0.712

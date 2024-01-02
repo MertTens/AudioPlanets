@@ -66,8 +66,10 @@
   <ItemGroup>
     <Compile Include="Assets/Noise.cs" />
     <Compile Include="Assets/TerrainFace.cs" />
+    <Compile Include="Assets/MouseLook.cs" />
     <Compile Include="Assets/AudioController.cs" />
     <Compile Include="Assets/AudioPlayer.cs" />
+    <Compile Include="Assets/PlayerMovement.cs" />
     <Compile Include="Assets/AudioSettings.cs" />
     <Compile Include="Assets/ColorSettings.cs" />
     <Compile Include="Assets/ShapeSettings.cs" />

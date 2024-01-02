@@ -22,7 +22,7 @@ public class ShapeGenerator
         for(int i = 0; i < kalmanFilter.numFilters; i++)
         {
             float logStrengh = (float)System.Math.Log(1 + strengths[i]);
-            elevation += EvaluateNoiseOnSinusoid(pointOnUnitSphere, time, logStrengh * decreaseMult, frequency);
+            elevation += EvaluateNoiseOnSinusoid(pointOnUnitSphere, time, logStrengh * decreaseMult * settings.strengthMult, frequency);
             frequency *= settings.frequencyMult;
             decreaseMult *= settings.strengthDecreaseFactor;
         }

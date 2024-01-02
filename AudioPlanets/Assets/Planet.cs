@@ -37,8 +37,12 @@ public class Planet : MonoBehaviour
     private void Start()
     {
         // Set up the Kalman filter
-        kalmanFilter = new KalmanFilter(kalmanSettings, numFilters);
-        audioPlayer = GetComponent<AudioPlayer>();
+        if (kalmanFilter == null) {
+            kalmanFilter = new KalmanFilter(kalmanSettings, numFilters);
+        }
+        if (audioPlayer == null) {
+            audioPlayer = GetComponent<AudioPlayer>();
+        }
         GeneratePlanet();
     }
 
@@ -54,11 +58,21 @@ public class Planet : MonoBehaviour
 
 
         // Update the Kalman filter
-        float[] measurements = new float[kalmanFilter.numFilters];
-        for (int i = 0; i < kalmanFilter.numFilters; i++)
-        {
-            measurements[i] = audioPlayer.spectrumSamples[i];
+        if (kalmanFilter == null) {
+            kalmanFilter = new KalmanFilter(kalmanSettings, numFilters);
         }
+        if (audioPlayer == null) {
+            audioPlayer = GetComponent<AudioPlayer>();
+        }
+        float[] measurements = new float[kalmanFilter.numFilters];
+        if (measurements.Length >= kalmanFilter.numFilters && audioPlayer.spectrumSamples.Length >= numFilters)
+        {
+            for (int i = 0; i < kalmanFilter.numFilters; i++)
+                {
+                    measurements[i] = audioPlayer.spectrumSamples[i];
+                }
+        }
+        
 
         kalmanFilter.PredictionGivenMeasurement(measurements);
         
